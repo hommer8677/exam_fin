@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 #include <stdio.h>
 #include <io.h>
@@ -8,7 +8,7 @@
 #include <vector>
 class Admin {
 private:
-    bool fileExists(const std::string& filename) {        //проверка на существование файла
+    bool fileExists(const std::string& filename) {        //РїСЂРѕРІРµСЂРєР° РЅР° СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёРµ С„Р°Р№Р»Р°
         std::ifstream file(filename);
         return file.is_open();
     }
@@ -28,13 +28,13 @@ public:
 
         std::cout << std::endl;
 
-        // Проверяем, заканчивается ли путь на маску. Если нет — добавляем \*
+        // РџСЂРѕРІРµСЂСЏРµРј, Р·Р°РєР°РЅС‡РёРІР°РµС‚СЃСЏ Р»Рё РїСѓС‚СЊ РЅР° РјР°СЃРєСѓ. Р•СЃР»Рё РЅРµС‚ вЂ” РґРѕР±Р°РІР»СЏРµРј \*
         std::string full_path = path;
         if (full_path.back() != '*' && full_path.find('*') == std::string::npos) {
             if (full_path.back() != '\\' && full_path.back() != '/') {
                 full_path += "\\";
             }
-            full_path += "*"; // Находит всё (и файлы, и папки)
+            full_path += "*"; // РќР°С…РѕРґРёС‚ РІСЃС‘ (Рё С„Р°Р№Р»С‹, Рё РїР°РїРєРё)
         }
         intptr_t handle = _findfirst(full_path.c_str(), &fileinfo);
 
@@ -94,7 +94,7 @@ public:
             std::cout << "1. Read file\n2. Write file\n3. Append info\n4. Edit line\n0. Exit" << std::endl;
             std::cin >> choose;
 
-            if (choose == 1) {                        //на switch жаловался почему то
+            if (choose == 1) {                        //РЅР° switch Р¶Р°Р»РѕРІР°Р»СЃСЏ РїРѕС‡РµРјСѓ С‚Рѕ
                 std::ifstream fileIn(file, std::ios::in);
                 std::cout << std::endl;
                 if (fileIn.is_open()) {
@@ -133,7 +133,7 @@ public:
                 std::cout << std::endl;
                 std::vector<std::string> lines;
                 std::string currentLine;
-                choose = 1; //как счетчик
+                choose = 1; //РєР°Рє СЃС‡РµС‚С‡РёРє
                 std::ifstream inFile(file);
                 while (std::getline(inFile, currentLine)) {
                     std::cout << choose++ << "| ";
@@ -155,7 +155,7 @@ public:
                     std::cout << "Invalid index!" << std::endl;
                 }
 
-                // Перезапись файлa
+                // РџРµСЂРµР·Р°РїРёСЃСЊ С„Р°Р№Р»a
                 std::ofstream outFile(file, std::ios::trunc);
                 for (const auto& l : lines) {
                     outFile << l << "\n";

@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
@@ -21,8 +21,8 @@ protected:
 		intptr_t number = _findfirst(path.c_str(), fileinfo);
 		intptr_t number_copy = number;
 		while (number_copy != -1) {
-			// . и .. это скрытые файлы VS. Если директория пуста, она всё равно
-			// найдёт эти 2 файла.
+			// . Рё .. СЌС‚Рѕ СЃРєСЂС‹С‚С‹Рµ С„Р°Р№Р»С‹ VS. Р•СЃР»Рё РґРёСЂРµРєС‚РѕСЂРёСЏ РїСѓСЃС‚Р°, РѕРЅР° РІСЃС‘ СЂР°РІРЅРѕ
+			// РЅР°Р№РґС‘С‚ СЌС‚Рё 2 С„Р°Р№Р»Р°.
 			if (fileinfo->name == "." or fileinfo->name == "..") {
 				number_copy = _findnext(number, fileinfo);
 				continue;
@@ -30,9 +30,9 @@ protected:
 			_findclose(number);
 			delete fileinfo;
 			number_copy == -1;
-			return true; // есть сработка, значит всё, возвращаемся.
-			// Впринципе эта часть тоже не нужна. При сработке мы выходим из цикла.
-			// А если файлов нет, то на этапе if в 54 строчке после .. 
+			return true; // РµСЃС‚СЊ СЃСЂР°Р±РѕС‚РєР°, Р·РЅР°С‡РёС‚ РІСЃС‘, РІРѕР·РІСЂР°С‰Р°РµРјСЃСЏ.
+			// Р’РїСЂРёРЅС†РёРїРµ СЌС‚Р° С‡Р°СЃС‚СЊ С‚РѕР¶Рµ РЅРµ РЅСѓР¶РЅР°. РџСЂРё СЃСЂР°Р±РѕС‚РєРµ РјС‹ РІС‹С…РѕРґРёРј РёР· С†РёРєР»Р°.
+			// Рђ РµСЃР»Рё С„Р°Р№Р»РѕРІ РЅРµС‚, С‚Рѕ РЅР° СЌС‚Р°РїРµ if РІ 54 СЃС‚СЂРѕС‡РєРµ РїРѕСЃР»Рµ .. 
 			// number_copy = -1;
 				/*number_copy = _findnext(number, fileinfo);*/
 
@@ -40,16 +40,16 @@ protected:
 		_findclose(number);
 		delete fileinfo;
 		return false;
-		// если цикл не сработал, то значит директории нет.
+		// РµСЃР»Рё С†РёРєР» РЅРµ СЃСЂР°Р±РѕС‚Р°Р», С‚Рѕ Р·РЅР°С‡РёС‚ РґРёСЂРµРєС‚РѕСЂРёРё РЅРµС‚.
 	}
-	// Функция для проверки на существование файла.
+	// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РїСЂРѕРІРµСЂРєРё РЅР° СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёРµ С„Р°Р№Р»Р°.
 	bool fileExists(const std::string& filename) {
 		std::ifstream file(filename);
-		return file.good(); // возвращает true, если файл открылся успешно
+		return file.good(); // РІРѕР·РІСЂР°С‰Р°РµС‚ true, РµСЃР»Рё С„Р°Р№Р» РѕС‚РєСЂС‹Р»СЃСЏ СѓСЃРїРµС€РЅРѕ
 	}
 
-	// Функция принимает номер строки и новую строку. Индексация
-	// строк идёт от 1 так как мой папик так попросил, и так почеловечнее
+	// Р¤СѓРЅРєС†РёСЏ РїСЂРёРЅРёРјР°РµС‚ РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё Рё РЅРѕРІСѓСЋ СЃС‚СЂРѕРєСѓ. РРЅРґРµРєСЃР°С†РёСЏ
+	// СЃС‚СЂРѕРє РёРґС‘С‚ РѕС‚ 1 С‚Р°Рє РєР°Рє РјРѕР№ РїР°РїРёРє С‚Р°Рє РїРѕРїСЂРѕСЃРёР», Рё С‚Р°Рє РїРѕС‡РµР»РѕРІРµС‡РЅРµРµ
 	void ChangeFString(int index, string ustr, std::string file) {
 		std::cout << std::endl;
 		std::vector<std::string> lines;
@@ -68,7 +68,7 @@ protected:
 			std::cout << "Invalid index!" << std::endl;
 		}
 
-		// Перезапись файлa
+		// РџРµСЂРµР·Р°РїРёСЃСЊ С„Р°Р№Р»a
 		std::ofstream outFile(file, std::ios::trunc);
 		for (const auto& l : lines) {
 			outFile << l << "\n";
@@ -87,8 +87,8 @@ public:
 		std::cout << "Choose test category:\n";
 		string full_path = "Tests\\*";
 		_finddata_t* fileinfo = new _finddata_t;
-		intptr_t number = _findfirst(full_path.c_str(), fileinfo); // fileinfo - первый в списке.
-		// number - номер группы найденных файлов.
+		intptr_t number = _findfirst(full_path.c_str(), fileinfo); // fileinfo - РїРµСЂРІС‹Р№ РІ СЃРїРёСЃРєРµ.
+		// number - РЅРѕРјРµСЂ РіСЂСѓРїРїС‹ РЅР°Р№РґРµРЅРЅС‹С… С„Р°Р№Р»РѕРІ.
 
 		intptr_t number_copy = number;
 		while (number_copy != -1) {
@@ -100,11 +100,11 @@ public:
 			number_copy = _findnext(number, fileinfo);
 
 		}
-		std::cin >> user_input; // Принимаем, какую категорию хочет выбрать юзер.
+		std::cin >> user_input; // РџСЂРёРЅРёРјР°РµРј, РєР°РєСѓСЋ РєР°С‚РµРіРѕСЂРёСЋ С…РѕС‡РµС‚ РІС‹Р±СЂР°С‚СЊ СЋР·РµСЂ.
 
 		full_path = { full_path.begin(), full_path.end() - 1 };
 		full_path = { full_path + user_input + "\\*.*" };
-		// Сейчас путь равен Tests\(category)\
+		// РЎРµР№С‡Р°СЃ РїСѓС‚СЊ СЂР°РІРµРЅ Tests\(category)\
 		
 		if (DirExist(full_path)) {
 			string file_name_for_user = "";
@@ -113,8 +113,8 @@ public:
 			intptr_t number = _findfirst(full_path.c_str(), fileinfo);
 			intptr_t number_copy = number;
 			while (number_copy != -1) {
-				// . и .. это скрытые файлы VS. Если директория пуста, она всё равно
-				// найдёт эти 2 файла.
+				// . Рё .. СЌС‚Рѕ СЃРєСЂС‹С‚С‹Рµ С„Р°Р№Р»С‹ VS. Р•СЃР»Рё РґРёСЂРµРєС‚РѕСЂРёСЏ РїСѓСЃС‚Р°, РѕРЅР° РІСЃС‘ СЂР°РІРЅРѕ
+				// РЅР°Р№РґС‘С‚ СЌС‚Рё 2 С„Р°Р№Р»Р°.
 				if ((strcmp(fileinfo->name, ".") == 0 or strcmp(fileinfo->name, "..") == 0)) {
 					number_copy = _findnext(number, fileinfo);
 					continue;
@@ -128,19 +128,19 @@ public:
 			std::cout << "\nChoose test: ";
 			_findclose(number);
 			delete fileinfo;
-			std::cin >> user_input; // Принимаю ввод названия теста.
+			std::cin >> user_input; // РџСЂРёРЅРёРјР°СЋ РІРІРѕРґ РЅР°Р·РІР°РЅРёСЏ С‚РµСЃС‚Р°.
 			full_path = { full_path.begin(), full_path.end() - 3 };
 			full_path = { full_path + user_input + ".txt" };
-			// Полный путь к файлу готов. Но ещё надо проверить на существование.
+			// РџРѕР»РЅС‹Р№ РїСѓС‚СЊ Рє С„Р°Р№Р»Сѓ РіРѕС‚РѕРІ. РќРѕ РµС‰С‘ РЅР°РґРѕ РїСЂРѕРІРµСЂРёС‚СЊ РЅР° СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёРµ.
 			if (fileExists(full_path)) {
-				// Теперь надо проверить, проходил ли юзер этот тест.
+				// РўРµРїРµСЂСЊ РЅР°РґРѕ РїСЂРѕРІРµСЂРёС‚СЊ, РїСЂРѕС…РѕРґРёР» Р»Рё СЋР·РµСЂ СЌС‚РѕС‚ С‚РµСЃС‚.
 				std::ifstream test("Users\\" + username + "\\tests.txt", std::ios::in);
 				string test_info = "";
 
 				int answers = 0;
 				int score = 0;
-				int counter = 0; // Это нужно для того, чтобы я знал,
-				//в какой строчке я меняю информацию.
+				int counter = 0; // Р­С‚Рѕ РЅСѓР¶РЅРѕ РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ СЏ Р·РЅР°Р»,
+				//РІ РєР°РєРѕР№ СЃС‚СЂРѕС‡РєРµ СЏ РјРµРЅСЏСЋ РёРЅС„РѕСЂРјР°С†РёСЋ.
 				bool TestWasBefore = false;
 				while (std::getline(test, test_info)) {
 					counter++;
@@ -159,8 +159,8 @@ public:
 				test.close();
 
 				if (TestWasBefore) {
-					// индексация от 0 так что если тест пройден, то дано
-					// 11 ответов.
+					// РёРЅРґРµРєСЃР°С†РёСЏ РѕС‚ 0 С‚Р°Рє С‡С‚Рѕ РµСЃР»Рё С‚РµСЃС‚ РїСЂРѕР№РґРµРЅ, С‚Рѕ РґР°РЅРѕ
+					// 11 РѕС‚РІРµС‚РѕРІ.
 					if (answers != 12) {
 						std::cout << "\nYou started this test before.\n"
 							<< "Your score " << score << " / 12\n"
@@ -178,7 +178,7 @@ public:
 
 
 					if (user_input == "1") {
-						// ну тут я ничего не делаю.
+						// РЅСѓ С‚СѓС‚ СЏ РЅРёС‡РµРіРѕ РЅРµ РґРµР»Р°СЋ.
 					}
 					else if (user_input == "2") {
 						answers = 0;
@@ -192,11 +192,11 @@ public:
 
 
 				std::ifstream testing(full_path, std::ios::in);
-				// Начинаем с вопроса, на котором был пользователь.
+				// РќР°С‡РёРЅР°РµРј СЃ РІРѕРїСЂРѕСЃР°, РЅР° РєРѕС‚РѕСЂРѕРј Р±С‹Р» РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ.
 				std::string question = "";
 				std::string answer = "";
-				// Я тут подумал - всё равно мы за один цикл можем считать
-				// сразу 2 строчки. Так что цикл на 12 элементов.
+				// РЇ С‚СѓС‚ РїРѕРґСѓРјР°Р» - РІСЃС‘ СЂР°РІРЅРѕ РјС‹ Р·Р° РѕРґРёРЅ С†РёРєР» РјРѕР¶РµРј СЃС‡РёС‚Р°С‚СЊ
+				// СЃСЂР°Р·Сѓ 2 СЃС‚СЂРѕС‡РєРё. РўР°Рє С‡С‚Рѕ С†РёРєР» РЅР° 12 СЌР»РµРјРµРЅС‚РѕРІ.
 				std::cout << "\n----------------------------"
 					<< "\nIf you want abort testing, write 000";
 				for (int i = 0; i < 12; i++) {
