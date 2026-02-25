@@ -1,18 +1,29 @@
-﻿#pragma once
+﻿//C++17 +
+
+#pragma once
 #include <iostream>
 #include <stdio.h>
 #include <io.h>
 #include <direct.h>
 #include <fstream>
+#include <filesystem>
 #include <string>
 #include <vector>
+
+namespace fl = std::filesystem;
+
 class Admin {
 private:
+    std::string path;
+
     bool fileExists(const std::string& filename) {        //проверка на существование файла
         std::ifstream file(filename);
         return file.is_open();
     }
 public:
+    Admin() : path{ fl::current_path().string() } {}
+    Admin(std::string& path): path{ path } {}
+
     void RenameFile(std::string oldName, std::string newName) {
         if (rename(oldName.c_str(), newName.c_str()) != 0) std::cout << "Error" << std::endl;
         else std::cout << "Success" << std::endl;
@@ -168,5 +179,19 @@ public:
         } while (choose != 0);
 
     }
+
+    void cd(const char* path) {
+        if (strcmp(path,"..") == 0) {
+            size_t last_slash = this->path.find_last_of("\\");
+            this->path.erase(last_slash);
+            return;
+        }
+        if (std::filesystem::exists(path) && std::filesystem::is_directory(path)) {
+            this->path += '\\';
+            this->path += path;
+        }
+        else std::cout << "Incorrect path" << std::endl;
+    }
+    void pwd() { std::cout << path << std::endl; }
 };
 

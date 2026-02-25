@@ -1,11 +1,20 @@
-﻿// exam_fin.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
-#include <iostream>
+﻿#include "Admin.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    Admin a;
+    int choose;
+    std::string us;
+    while (true) {
+        std::cout << "1.cd \n2.pwd" << std::endl;
+        std::cin >> choose;
+        if (choose == 1) {
+            std::cin.ignore();
+            std::getline(std::cin, us);
+            a.cd(us.c_str());
+        }
+        else a.pwd();
+    }
 }
 //коммент
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
