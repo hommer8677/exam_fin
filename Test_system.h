@@ -15,6 +15,32 @@ class Test_system {
 	Admin admin;
 	User current_user;
 
+	bool DirExist(string path) {
+		_finddata_t* fileinfo = new _finddata_t;
+		intptr_t number = _findfirst(path.c_str(), fileinfo);
+		intptr_t number_copy = number;
+		while (number_copy != -1) {
+			// . и .. это скрытые файлы VS. Если директория пуста, она всё равно
+			// найдёт эти 2 файла.
+			if (fileinfo->name == "." or fileinfo->name == "..") {
+				number_copy = _findnext(number, fileinfo);
+				continue;
+			}
+			_findclose(number);
+			delete fileinfo;
+			number_copy = -1;
+			return true; // есть сработка, значит всё, возвращаемся.
+			// Впринципе эта часть тоже не нужна. При сработке мы выходим из цикла.
+			// А если файлов нет, то на этапе if в 54 строчке после .. 
+			// number_copy = -1;
+				/*number_copy = _findnext(number, fileinfo);*/
+		}
+		_findclose(number);
+		delete fileinfo;
+		return false;
+		// если цикл не сработал, то значит директории нет.
+	}
+
 public:
 
 	// Конструктора нет, тут он нам не нужен.
@@ -47,7 +73,33 @@ public:
 			}
 			password_stream << password;
 			password_stream.close();
+			current_user.setName(login);
 			return;
+		}
+	}
+
+	void user_login() {
+		std::string login;
+		std::cout << "Input login: ";
+		std::cin.ignore();
+		std::getline(std::cin, login);
+		std:string path = { "Users\\" + login };
+		if (DirExist(path)) {
+			std::cout << "\nInput password (please, don't input special sybols): ";
+			std::string real_password;
+			std::string password;
+			std::cin.ignore();
+			std::getline(std::cin, password);
+			std::ifstream file(path + "password.txt", std::ios::in);
+			file >> real_password;
+			for (int i = 0; i < real_password.length(); i++) {
+				real_password[i] = real_password[i] - 5;
+
+			}
+			if (real_password == password) {
+				current_user.setName(login);
+				std::cout << "\nSucces!";
+			}
 		}
 	}
 

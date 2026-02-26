@@ -29,7 +29,7 @@ protected:
 			}
 			_findclose(number);
 			delete fileinfo;
-			number_copy == -1;
+			number_copy = -1;
 			return true; // есть сработка, значит всё, возвращаемся.
 		// Впринципе эта часть тоже не нужна. При сработке мы выходим из цикла.
 		// А если файлов нет, то на этапе if в 54 строчке после .. 
@@ -84,6 +84,9 @@ public:
 		// При создании юзера я создаю директорию.
 
 		
+	}
+	void setName(string name) {
+		username = name;
 	}
 	
 
@@ -278,7 +281,35 @@ public:
 
 			std::cout << test_name << ":\nAnswers " << answers << " / 12 and score " << score << " / 12\n";
 		}
-		
+	}
+
+	void change_password() {
+		std::string password;
+		std::cout << "Input new password (please, don't input special sybols): ";
+		std::cin.ignore();
+
+		std::getline(std::cin, password);
+		for (int i = 0; i < password.length(); i++) {
+			password[i] = password[i] + 5;
+		}
+		std::ofstream file("Users\\" + username + "\\password.txt", std::ios::in);
+
+		file << password;
+	}
+
+	void change_login() {
+
+		std::string user_input;
+		std::cout << "Input login (without spaces):  ";
+		std::cin.ignore();
+		std::getline(std::cin, user_input);
+		for (size_t i = 0; i < user_input.length(); i++)
+			if (user_input[i] == ' ') user_input[i] = '_';
+
+		if (rename(username.c_str(), user_input.c_str()) != 0) std::cout << "Error" << std::endl;
+		else std::cout << "Success" << std::endl;
+
+		username = user_input;
 
 	}
 };
