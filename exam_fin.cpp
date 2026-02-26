@@ -15,7 +15,8 @@ int main()
         }
         else a.pwd();
 
-        std::cout << "322";
+        std::cout << "322" << std::endl;;
+        std::cout << "323";
     }
 }
 //коммент
