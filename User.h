@@ -83,13 +83,7 @@ public:
 
 		// При создании юзера я создаю директорию.
 
-		if (_mkdir(usern.c_str()) == -1) {
-			std::cout << "Error!\n";
-		}
-		else {
-			std::cout << "succes!";
-			std::ofstream test("Users\\" + username + "\\tests.txt", std::ios::out);
-		}
+		
 	}
 	
 
