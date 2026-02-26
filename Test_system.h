@@ -107,9 +107,92 @@ public:
 
 	// Метод для самого запуска системы.
 	void launch_system() {
+		std::string user_input;
 		do {
+			std::cout << "------Main Menu------\n\n";
+			
+			/*std::cout << "Enter the number under which the function you need is located:\n"*/
+			std::cout << "Which mode you need (input number of option):"
+				// Тут я просто чутка пояснил за режимы.
+				<< "\n1. User - passing the tests"
+				<< "\n2. Administrator - users and tests management"
+				<< "\n0. turn off the system ";
+
+			std::cin.ignore();
+			std::getline(std::cin, user_input);
+			// Из за того, что это был командный проект, 
+			// менюшку для юзера и всего юзера делал Игор Салукин,
+			// а всего админа и вообще весь проект Аксонов Nван. (Игор списал у него)
+
+			if (user_input == "0") {
+				break; // Просто обрубаем лаун систем.
+			}
+			else if (user_input == "1") {
+				// Запускаю режим юзера.
+				do {
+					system("cls"); // подчищаем консоль, хочу красивенько.
+					if (current_user.get_username() == "") {
+						std::cout << "1. Register\n2. Log in\n0. Return to main menu";
+						std::cin.ignore();
+						std::getline(std::cin, user_input);
+						if (user_input == "1") {
+							user_registration(); // Сами метод найдёте.
+						}
+						else if (user_input == "2") {
+							user_login(); // Сами метод найдёте.
+						}
+						else if (user_input == "0") break;
+						else {
+							std::cout << "\nIncorrect input! Press any button to continue...";
+							system("pause > NUL");
+						}
+					}
+					// Юзер вошёл в аккаунт
+					else{
+						std::cout << "*****  " << current_user.get_username() << "  *****\n";
+						std::cout << "\nEnter the number under which the function you need is located:\n"
+							<< "\n1. Choose test and begin testing"
+							<< "\n2. Check tests result"
+							<< "\n3. Change login (username)"
+							<< "\n4. Change password"
+							<<"\n\n0. Log out\n";
+
+						std::cin.ignore();
+						std::getline(std::cin, user_input);
+
+						if (user_input == "0") current_user.setName("");
+						else if (user_input == "1") {
+							current_user.start_test();
+						}
+						else if (user_input == "2") {
+							current_user.get_tests_results();
+						}
+						else if (user_input == "3") {
+							current_user.change_login();
+						}
+						else if (user_input == "4") {
+							current_user.change_password();
+						}
+						else {
+							std::cout << "\nIncorrect input! Press any button to continue...";
+							system("pause > NUL");
+						}
+					}
+				} while (true); // конец режимаю юзера
 
 
+			}
+
+			// Тут пиши меню для админа и блаблабла.
+			else if (user_input == "2") {
+				
+			}
+
+			else {
+				std::cout << "\nIncorrect input! Press any button to continue...";
+				system("pause > NUL");
+			}
+			
 		} while (true);
 	}
 

@@ -80,10 +80,10 @@ protected:
 public:
 	User(string usern) {
 		username = usern;
-
 		// При создании юзера я создаю директорию.
-
-		
+	}
+	User() {
+		username = ""; // Хотел сделать None, однако найдётся же дурачьё с ником None
 	}
 	void setName(string name) {
 		username = name;
@@ -241,12 +241,15 @@ public:
 
 			}
 			else {
-				std::cout << "\nFile doesn't exist";
+				std::cout << "\nFile doesn't exist! Press any button to continue...\n";
+				system("pause > NUL");
+				return;
 			}
 
 		}
 		else {
-			std::cout << "\nCategory doesn't exist!\n";
+			std::cout << "\nCategory doesn't exist! Press any button to continue...\n";
+			system("pause > NUL");
 			return;
 		}
 	}
@@ -306,10 +309,16 @@ public:
 		for (size_t i = 0; i < user_input.length(); i++)
 			if (user_input[i] == ' ') user_input[i] = '_';
 
-		if (rename(username.c_str(), user_input.c_str()) != 0) std::cout << "Error" << std::endl;
+		if (rename(username.c_str(), user_input.c_str()) != 0) {
+			std::cout << "\Error! Press any button to continue...";
+			system("pause > NUL");
+		}
 		else std::cout << "Success" << std::endl;
 
 		username = user_input;
+	}
 
+	std::string get_username() const {
+		return username;
 	}
 };
