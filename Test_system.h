@@ -23,11 +23,11 @@ public:
 	void user_registration() {
 		std::string login;
 		std::cout << "Input login: ";
-		getchar();
+		std::cin.ignore();
 		std::getline(std::cin, login);
 		std:string path = { "Users\\" + login };
 
-		if (mkdir(path) != 0) {
+		if (mkdir(path.c_str()) != 0) {
 			std::cout << "Error! User with tihs name already exist!";
 			return;
 		}
@@ -35,17 +35,17 @@ public:
 			// если цикл не сработал, то значит директории нет. ј значит регистрируем юзера.
 			std::string password;
 			std::cout << "Input password: ";
-			getchar();
+			std::cin.ignore();
 			std::getline(std::cin, password); // ј пароли должны быть уникальны? Ќас не прос€т об этом, так что не надо делать
 			// лишнюю проверку на то, использовалс€ ли этот пароль у кого либо.
 			std::ofstream tests(path + "\\tests.txt", std::ios::out);
 			std::ofstream password_stream(path + "\\password.txt", std::ios::out);
 			tests.close();
-			for (int i = 0; i < password.lenght(); i++) {
+			for (int i = 0; i < password.length(); i++) {
 				password[i] = password[i] + 5;
 
 			}
-			password_stream >> password;
+			password_stream << password;
 			password_stream.close();
 			return;
 		}
