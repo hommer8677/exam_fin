@@ -14,6 +14,8 @@ int main()
             a.cd(us.c_str());
         }
         else a.pwd();
+
+        std::cout << "322";
     }
 }
 //коммент
