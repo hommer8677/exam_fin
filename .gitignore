@@ -10,6 +10,11 @@
 *.userosscache
 *.sln.docstates
 Admin.cpp
+User.cpp
+User.h
+exam_fin.vcxproj.filters
+exam_fin.vcxproj
+exam_fin.sln
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
