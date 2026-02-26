@@ -193,5 +193,21 @@ public:
         else std::cout << "Incorrect path" << std::endl;
     }
     void pwd() { std::cout << path << std::endl; }
-};
 
+    float average_in_the_category(const char* category_path) {
+        std::string path_to_cat = "Tests" + '\\' + std::string(category_path);
+        std::string file, line; //заглушка
+        if (fl::exists(path_to_cat.c_str())) {
+            std::ifstream fileIn(file, std::ios::in);
+            std::cout << std::endl;
+            if (fileIn.is_open()) {
+                while (std::getline(fileIn, line)) {
+                    std::cout << line << std::endl;
+                }
+                fileIn.close();
+            }
+            else std::cout << "Error" << std::endl;
+            std::cout << std::endl;
+        }
+    }
+};
