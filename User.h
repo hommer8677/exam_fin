@@ -14,7 +14,7 @@ class User
 
 	std::string username;
 protected:
-	 
+
 
 	bool DirExist(string path) {
 		_finddata_t* fileinfo = new _finddata_t;
@@ -31,11 +31,11 @@ protected:
 			delete fileinfo;
 			number_copy == -1;
 			return true; // есть сработка, значит всё, возвращаемся.
-		// Впринципе эта часть тоже не нужна. При сработке мы выходим из цикла.
-		// А если файлов нет, то на этапе if в 54 строчке после .. 
-		// number_copy = -1;
-			/*number_copy = _findnext(number, fileinfo);*/
-			
+			// Впринципе эта часть тоже не нужна. При сработке мы выходим из цикла.
+			// А если файлов нет, то на этапе if в 54 строчке после .. 
+			// number_copy = -1;
+				/*number_copy = _findnext(number, fileinfo);*/
+
 		}
 		_findclose(number);
 		delete fileinfo;
@@ -91,7 +91,7 @@ public:
 			std::ofstream test("Users\\" + username + "\\tests.txt", std::ios::out);
 		}
 	}
-	
+
 
 	void start_test() {
 		string user_input = "";
@@ -103,18 +103,18 @@ public:
 
 		intptr_t number_copy = number;
 		while (number_copy != -1) {
-			if ((strcmp(fileinfo->name, ".") == 0 or strcmp(fileinfo->name, "..")==0)) {
+			if ((strcmp(fileinfo->name, ".") == 0 or strcmp(fileinfo->name, "..") == 0)) {
 				number_copy = _findnext(number, fileinfo);
 				continue;
 			}
 			std::cout << fileinfo->name << "\n";
 			number_copy = _findnext(number, fileinfo);
-			
+
 		}
 		std::cin >> user_input; // Принимаем, какую категорию хочет выбрать юзер.
-		
+
 		full_path = { full_path.begin(), full_path.end() - 1 };
-		full_path = { full_path + user_input + "\\*.*"};
+		full_path = { full_path + user_input + "\\*.*" };
 		// Сейчас путь равен Tests\(category)\
 		
 		if (DirExist(full_path)) {
@@ -147,7 +147,7 @@ public:
 				// Теперь надо проверить, проходил ли юзер этот тест.
 				std::ifstream test("Users\\" + username + "\\tests.txt", std::ios::in);
 				string test_info = "";
-				
+
 				int answers = 0;
 				int score = 0;
 				int counter = 0; // Это нужно для того, чтобы я знал,
@@ -159,16 +159,16 @@ public:
 						size_t pos = test_info.find(' ');
 						std::string twoNums = { test_info.substr(pos + 1) };
 						pos = twoNums.find(' ');
-						std::string temp = twoNums.substr(0,pos);
+						std::string temp = twoNums.substr(0, pos);
 						answers = std::stoi(temp);
 						temp = twoNums.substr(pos + 1);
 						score = std::stoi(temp);
 						TestWasBefore = true;
-						
+
 					}
 				}
 				test.close();
-				
+
 				if (TestWasBefore) {
 					// индексация от 0 так что если тест пройден, то дано
 					// 11 ответов.
@@ -200,14 +200,14 @@ public:
 					}
 				}
 
-				
+
 
 				std::ifstream testing(full_path, std::ios::in);
 				// Начинаем с вопроса, на котором был пользователь.
 				std::string question = "";
 				std::string answer = "";
-			// Я тут подумал - всё равно мы за один цикл можем считать
-			// сразу 2 строчки. Так что цикл на 12 элементов.
+				// Я тут подумал - всё равно мы за один цикл можем считать
+				// сразу 2 строчки. Так что цикл на 12 элементов.
 				std::cout << "\n----------------------------"
 					<< "\nIf you want abort testing, write 000\n\n";
 				for (int i = 0; i < 12; i++) {
@@ -226,8 +226,8 @@ public:
 					if (user_input == "000") {
 						break;
 					}
-					answers++; 
-					
+					answers++;
+
 
 				}
 				string fstring = { full_path + " " + to_string(answers) + " " + to_string(score) };
@@ -236,7 +236,7 @@ public:
 					ChangeFString(counter, fstring, routeTOUser);
 				}
 
-				else{
+				else {
 					std::ofstream file(routeTOUser, std::ios::app);
 					file << fstring;
 					file.close();
@@ -272,7 +272,7 @@ public:
 			test_name = full_string.substr(6, pos);
 			// не уверен, почему все эти преобразования строки отказывались
 			// лезть в 1 строчку, но да ладно.
-			test_name = test_name.substr(test_name.find('\\')+1);
+			test_name = test_name.substr(test_name.find('\\') + 1);
 			test_name = test_name.substr(0, test_name.find('.'));
 
 			std::string twoNums = { full_string.substr(pos + 1) };
@@ -284,7 +284,7 @@ public:
 
 			std::cout << test_name << ":\nAnswers " << answers << " / 12 and score " << score << " / 12\n";
 		}
-		
+
 
 	}
 };
