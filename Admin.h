@@ -21,7 +21,7 @@ private:
         return file.is_open();
     }
 public:
-    Admin() : path{ fl::current_path().string() } {}
+    Admin() : path{ fl::current_path().string() += '\\'} {}
     Admin(std::string& path): path{ path } {}
 
     void RenameFile(std::string oldName, std::string newName) {
@@ -88,7 +88,7 @@ public:
 
     void open_file(std::string file) {
         //std::fstream file_adm(file, std::ios::in | std::ios::out | std::ios::app);
-
+        file = path += file;
         if (!fileExists(file)) {
             std::ofstream MyFile(file);
             if (MyFile.is_open()) MyFile.close();
@@ -99,7 +99,7 @@ public:
         }
 
         int choose;
-        std::string line, line2;
+        std::string line;
         do {
             std::cout << "Choose action: " << std::endl;
             std::cout << "1. Read file\n2. Write file\n3. Append info\n4. Edit line\n0. Exit" << std::endl;
@@ -118,6 +118,7 @@ public:
                 std::cout << std::endl;
             }
             else if (choose == 2) {
+                if (file == "adm.txt") continue;
                 std::ofstream fileOut(file);
 
                 if (fileOut.is_open()) {
@@ -130,6 +131,8 @@ public:
 
             }
             else if (choose == 3) {
+                if (file == "adm.txt") continue;
+
                 std::ofstream fileApp(file, std::ios::app);
 
                 if (fileApp.is_open()) {
@@ -187,8 +190,8 @@ public:
             return;
         }
         if (std::filesystem::exists(path) && std::filesystem::is_directory(path)) {
-            this->path += '\\';
             this->path += path;
+            this->path += '\\';
         }
         else std::cout << "Incorrect path" << std::endl;
     }
