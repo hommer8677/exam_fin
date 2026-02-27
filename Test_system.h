@@ -40,6 +40,20 @@ class Test_system {
 		return false;
 		// если цикл не сработал, то значит директории нет.
 	}
+	inline void input(std::string& str) {
+		std::cin.ignore();
+		std::getline(std::cin, str);
+	}
+	inline std::string code(std::string& pass) {
+		for (int i = 0; i < pass.size(); i++) {
+			pass[i] = pass[i] + 5;
+		}
+		return pass;
+	}
+
+
+
+
 
 public:
 
@@ -187,7 +201,7 @@ public:
 			else if (user_input == "2") {
 				std::cin.ignore();
 				std::getline(std::cin, user_input);
-				code(user_input); \
+				code(user_input);
 
 				std::ifstream file("adm.txt");
 				std::getline(file, line);
