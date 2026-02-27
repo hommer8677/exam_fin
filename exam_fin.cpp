@@ -2,7 +2,7 @@
 
 int main()
 {
-    Admin a;
+    /*Admin a;
     int choose;
     std::string us;
     while (true) {
@@ -14,7 +14,12 @@ int main()
             a.cd(us.c_str());
         }
         else a.pwd();
-    }
+
+        std::cout << "322" << std::endl;;
+        std::cout << "323";
+    }*/
+    std::string a = "sss";
+    std::cout << a.length();
 }
 //коммент
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
