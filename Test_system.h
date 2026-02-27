@@ -76,8 +76,7 @@ public:
 			std::string password;
 			std::cout << "Input password: ";
 
-			std::getline(std::cin, password); // А пароли должны быть уникальны? Нас не просят об этом, так что не надо делать
-			// лишнюю проверку на то, использовался ли этот пароль у кого либо.
+			std::getline(std::cin, password); 
 			std::ofstream tests(path + "\\tests.txt", std::ios::out);
 			std::ofstream password_stream(path + "\\password.txt", std::ios::out);
 			tests.close();
@@ -204,7 +203,6 @@ public:
 
 			// Тут пиши меню для админа и блаблабла.
 			else if (user_input == "2") {
-				std::cin.ignore();
 				std::getline(std::cin, user_input);
 				code(user_input);
 

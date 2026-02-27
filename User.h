@@ -112,7 +112,7 @@ public:
 		
 		full_path = { full_path.begin(), full_path.end() - 1 };
 		full_path = { full_path + user_input + "\\*.*"};
-		// Сейчас путь равен Tests\(category)\
+		// Сейчас путь равен Tests\(category)\*.*
 		
 		if (DirExist(full_path)) {
 			string file_name_for_user = "";
@@ -146,7 +146,7 @@ public:
 				string test_info = "";
 				
 				int answers = 0;
-				int score = 0;
+				int score = 0; // балл
 				int counter = 0; // Это нужно для того, чтобы я знал,
 				//в какой строчке я меняю информацию.
 				bool TestWasBefore = false;
@@ -167,8 +167,7 @@ public:
 				test.close();
 				
 				if (TestWasBefore) {
-					// индексация от 0 так что если тест пройден, то дано
-					// 11 ответов.
+					
 					if (answers != 12) {
 						std::cout << "\nYou started this test before.\n"
 							<< "Your score " << score << " / 12\n"
