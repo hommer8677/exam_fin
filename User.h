@@ -289,7 +289,6 @@ public:
 	void change_password() {
 		std::string password;
 		std::cout << "Input new password (please, don't input special sybols): ";
-		std::cin.ignore();
 
 		std::getline(std::cin, password);
 		for (int i = 0; i < password.length(); i++) {
@@ -304,7 +303,6 @@ public:
 
 		std::string user_input;
 		std::cout << "Input login (without spaces):  ";
-		std::cin.ignore();
 		std::getline(std::cin, user_input);
 		for (size_t i = 0; i < user_input.length(); i++)
 			if (user_input[i] == ' ') user_input[i] = '_';

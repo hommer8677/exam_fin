@@ -61,13 +61,13 @@ public:
 	// для начала нужны методы, чтобы зарегестрировать юзера.
 	// Уникального юзера.
 	void user_registration() {
-		std::string login;
+		std::string login = "";
 		std::cout << "Input login: ";
-		std::cin.ignore();
+
 		std::getline(std::cin, login);
 		std:string path = { "Users\\" + login };
 
-		if (mkdir(path.c_str()) != 0) {
+		if (_mkdir(path.c_str()) != 0) {
 			std::cout << "Error! User with tihs name already exist!";
 			return;
 		}
@@ -75,7 +75,7 @@ public:
 			// если цикл не сработал, то значит директории нет. А значит регистрируем юзера.
 			std::string password;
 			std::cout << "Input password: ";
-			std::cin.ignore();
+
 			std::getline(std::cin, password); // А пароли должны быть уникальны? Нас не просят об этом, так что не надо делать
 			// лишнюю проверку на то, использовался ли этот пароль у кого либо.
 			std::ofstream tests(path + "\\tests.txt", std::ios::out);
@@ -95,25 +95,31 @@ public:
 	void user_login() {
 		std::string login;
 		std::cout << "Input login: ";
-		std::cin.ignore();
+
 		std::getline(std::cin, login);
 		std:string path = { "Users\\" + login };
 		if (DirExist(path)) {
 			std::cout << "\nInput password (please, don't input special sybols): ";
 			std::string real_password;
 			std::string password;
-			std::cin.ignore();
-			std::getline(std::cin, password);
-			std::ifstream file(path + "password.txt", std::ios::in);
-			file >> real_password;
-			for (int i = 0; i < real_password.length(); i++) {
-				real_password[i] = real_password[i] - 5;
 
-			}
+			std::getline(std::cin, password);
+			code(password);
+			std::ifstream file(path + "\\password.txt", std::ios::in);
+			std::getline(file, real_password);
+			/*for (int i = 0; i < real_password.length(); i++) {
+				real_password[i] = real_password[i] - 5;
+			}*/
+			std::cout << "\n" << real_password << "\n" << password << "\n\n";
 			if (real_password == password) {
 				current_user.setName(login);
 				std::cout << "\nSucces!";
 			}
+			else {
+				std::cout << "\nwrong password\n\n";
+				system("pause");
+			}
+			file.close();
 		}
 	}
 
@@ -130,9 +136,9 @@ public:
 				// Тут я просто чутка пояснил за режимы.
 				<< "\n1. User - passing the tests"
 				<< "\n2. Administrator - users and tests management"
-				<< "\n0. turn off the system ";
+				<< "\n0. turn off the system \n";
 
-			std::cin.ignore();
+			
 			std::getline(std::cin, user_input);
 			// Из за того, что это был командный проект, 
 			// менюшку для юзера и всего юзера делал Игор Салукин,
@@ -146,8 +152,7 @@ public:
 				do {
 					system("cls"); // подчищаем консоль, хочу красивенько.
 					if (current_user.get_username() == "") {
-						std::cout << "1. Register\n2. Log in\n0. Return to main menu";
-						std::cin.ignore();
+						std::cout << "1. Register\n2. Log in\n0. Return to main menu\n";
 						std::getline(std::cin, user_input);
 						if (user_input == "1") {
 							user_registration(); // Сами метод найдёте.
@@ -171,7 +176,7 @@ public:
 							<< "\n4. Change password"
 							<< "\n\n0. Log out\n";
 
-						std::cin.ignore();
+
 						std::getline(std::cin, user_input);
 
 						if (user_input == "0") current_user.setName("");
