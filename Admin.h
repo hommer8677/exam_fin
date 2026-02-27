@@ -99,7 +99,7 @@ public:
         }
 
         int choose;
-        std::string line, line2;
+        std::string line;
         do {
             std::cout << "Choose action: " << std::endl;
             std::cout << "1. Read file\n2. Write file\n3. Append info\n4. Edit line\n0. Exit" << std::endl;

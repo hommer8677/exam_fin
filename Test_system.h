@@ -41,17 +41,6 @@ class Test_system {
 		// если цикл не сработал, то значит директории нет.
 	}
 
-	inline void input(std::string& str) {
-		std::cin.ignore();
-		std::getline(std::cin, str);
-	}
-	inline std::string code(std::string& pass) {
-		for (int i = 0; i < pass.size(); i++) {
-			pass[i] = pass[i] + 5;
-		}
-		return pass;
-	}
-
 public:
 
 	// Конструктора нет, тут он нам не нужен.
