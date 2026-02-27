@@ -41,6 +41,17 @@ class Test_system {
 		// если цикл не сработал, то значит директории нет.
 	}
 
+	inline void input(std::string& str) {
+		std::cin.ignore();
+		std::getline(std::cin, str);
+	}
+	inline std::string code(std::string& pass) {
+		for (int i = 0; i < pass.size(); i++) {
+			pass[i] = pass[i] + 5;
+		}
+		return pass;
+	}
+
 public:
 
 	// Конструктора нет, тут он нам не нужен.
@@ -107,10 +118,10 @@ public:
 
 	// Метод для самого запуска системы.
 	void launch_system() {
-		std::string user_input;
+		std::string user_input, line;
 		do {
 			std::cout << "------Main Menu------\n\n";
-			
+
 			/*std::cout << "Enter the number under which the function you need is located:\n"*/
 			std::cout << "Which mode you need (input number of option):"
 				// Тут я просто чутка пояснил за режимы.
@@ -148,14 +159,14 @@ public:
 						}
 					}
 					// Юзер вошёл в аккаунт
-					else{
+					else {
 						std::cout << "*****  " << current_user.get_username() << "  *****\n";
 						std::cout << "\nEnter the number under which the function you need is located:\n"
 							<< "\n1. Choose test and begin testing"
 							<< "\n2. Check tests result"
 							<< "\n3. Change login (username)"
 							<< "\n4. Change password"
-							<<"\n\n0. Log out\n";
+							<< "\n\n0. Log out\n";
 
 						std::cin.ignore();
 						std::getline(std::cin, user_input);
@@ -185,7 +196,75 @@ public:
 
 			// Тут пиши меню для админа и блаблабла.
 			else if (user_input == "2") {
-				
+				std::cin.ignore();
+				std::getline(std::cin, user_input);
+				code(user_input); \
+
+				std::ifstream file("adm.txt");
+				std::getline(file, line);
+				if (user_input == line) {
+					Admin a;
+					int admin_choose;
+					//std::string  adm_str, old_name;
+					do {
+						try {
+							std::cout << "---------------------------" << std::endl;
+							std::cout << "Choose action: " << std::endl;
+							std::cout << "1.Rename file(dir)\n2.Remove file\n3.Search directory\n4.Create directory\n5.Remove directory\n6.Open file\n7.Create file" << std::endl;
+							std::cout << "0.Exit" << std::endl;
+							if (!(std::cin >> admin_choose)) throw std::invalid_argument("Invalid argument!");
+							else if (admin_choose > 7 || admin_choose < 0) throw std::out_of_range("Out of range");
+						}
+						catch (std::exception& e) {
+							std::cout << e.what() << std::endl;
+							continue;
+							//std::cin.clear();
+						}
+						switch (admin_choose) {
+						case 0: break;
+						case 1:
+							std::cout << "Old file name: ";
+							input(line);
+							std::cout << "New file name: ";
+							std::getline(std::cin, user_input);
+							admin.RenameFile(line, user_input);
+							break;
+						case 2:
+							std::cout << "File name: ";
+							input(user_input);
+							admin.RemoveFile(user_input);
+							break;
+						case 3:
+							std::cout << "Dir name: ";
+							input(user_input);
+							admin.SearchDir(user_input);
+							break;
+						case 4:
+							std::cout << "Dir name: ";
+							input(user_input);
+							admin.CreateDir(user_input);
+							break;
+						case 5:
+							std::cout << "Dir name: ";
+							input(user_input);
+							admin.RemoveDir(user_input);
+							break;
+						case 6:
+							std::cout << "File name: ";
+							input(user_input);
+							admin.open_file(user_input);
+							break;
+						case 7:
+							std::cout << "File name: ";
+							input(user_input);
+							admin.create_file(user_input);
+							break;
+						default: std::cout << "Incorrect input";
+						}
+					} while (admin_choose != 0);
+				}
+				else std::cout << "No succes" << std::endl;
+				file.close();
 			}
 
 			else {
