@@ -196,5 +196,35 @@ public:
         else std::cout << "Incorrect path" << std::endl;
     }
     void pwd() { std::cout << path << std::endl; }
+
+    float average_in_the_category(std::string user_name, const char* category) {
+        if (fl::exists(user_name.c_str())) {
+            cd(user_name.c_str());
+            cd("Tests.txt");
+            int counter = 0, bals = 0; //кол-во пройденных тестов , сумма оценок
+
+            std::ifstream test(path);
+            std::string line;
+
+            if (test.is_open()) {
+                while (std::getline(test, line)) {
+                    counter++;
+                    if (strstr(line.c_str(), path.c_str()) != nullptr) {  //чтение оценки(реверс->чтение до пробела->реверс)
+                        std::reverse(line.begin(), line.end());
+                        size_t first_space = line.find(' ');
+                        line = { line.begin(), line.begin() + first_space };
+                        std::reverse(line.begin(), line.end());
+                        bals += int(line.c_str());
+                    }
+                }
+                test.close();
+            }
+            cd("..");
+            cd("..");
+            return (static_cast<float>(bals) / static_cast<float>(counter));
+        }
+        else return -1;
+
+    }
 };
 
